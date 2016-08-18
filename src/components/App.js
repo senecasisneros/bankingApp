@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 import { Router, Route, browserHistory }  from 'react-router';
 import List  from './List';
+import InputPage  from './InputPage';
 
 export default class App extends Component {
   constructor() {
@@ -21,56 +22,73 @@ export default class App extends Component {
   }
 
   updateTrans(id, transUpdate) {
-  fetch(`/api/transactions/${id}`, {
-    method: 'PUT',
-    body: JSON.stringify(transUpdate),
-    headers: new Headers({
-      'Content-Type': 'application/json'
+    fetch(`/api/transactions/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(transUpdate),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
     })
-  })
-  .then(res => res.json())
-  .then(transactions => {
-    this.setState({transactions});
-  })
-  .catch(err => {
-    console.log('err:', err);
-  })
-};
-
-
-toggleType(id) {
-  fetch(`/api/transactions/${id}/type`, {
-    method: 'PUT'
-  })
-  .then(res => res.json())
-  .then(transactions => {
-    this.setState({transactions});
-  })
-  .catch(err => {
-    console.log('err:', err);
-  })
-}
-
-deleteTransaction(id) {
-  fetch(`/api/transactions/${id}`, {
-    method: 'DELETE',
-    headers: new Headers({
-      'Content-Type': 'application/json'
+    .then(res => res.json())
+    .then(transactions => {
+      this.setState({transactions});
     })
-  })
-  .then(res => {
-    // console.log('res:', res);
-  })
-  .then(transactions => {
-    this.setState({transactions});
-  })
-  .catch(err => {
-    console.log('err:', err);
-  })
-};
+    .catch(err => {
+      console.log('err:', err);
+    })
+  };
 
-componentDidMount() {
-  fetch('/api/transactions')
+  addTrans(transAdd) {
+    fetch(`/api/transactions`, {
+      method: 'POST',
+      body: JSON.stringify(transAdd),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+    .then(res => res.json())
+    .then(transactions => {
+      this.setState({transactions});
+    })
+    .catch(err => {
+      console.log('err:', err);
+    })
+  };
+
+
+  toggleType(id) {
+    fetch(`/api/transactions/${id}/type`, {
+      method: 'PUT'
+    })
+    .then(res => res.json())
+    .then(transactions => {
+      this.setState({transactions});
+    })
+    .catch(err => {
+      console.log('err:', err);
+    })
+  }
+
+  deleteTransaction(id) {
+    fetch(`/api/transactions/${id}`, {
+      method: 'DELETE',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+    .then(res => {
+      // console.log('res:', res);
+    })
+    .then(transactions => {
+      this.setState({transactions});
+    })
+    .catch(err => {
+      console.log('err:', err);
+    })
+  };
+
+  componentDidMount() {
+    fetch('/api/transactions')
     .then(res => res.json())
     .then(transactions => {
       this.setState({transactions});
@@ -78,13 +96,11 @@ componentDidMount() {
     .catch(err => {
       throw err;
     })
-}
-
-
-
+  }
   render() {
     return (
       <div>
+      <InputPage addTrans={this.state.addTrans}/>
       <List transactions={this.state.transactions}
       toggleType={this.toggleType}
       updateTrans={this.updateTrans}
@@ -93,8 +109,5 @@ componentDidMount() {
     )
   }
 }
-
-
-
 
 {/* {this.props.children}             {/* whatever child component is being render will go through here */}
