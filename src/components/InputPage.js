@@ -56,7 +56,7 @@ export default class InputPage extends Component {
       <div className="col-lg-10">
       <div className="radio">
       <label>
-      <input type="radio" name="optionsRadios" id="debit" value="option1" />
+      <input type="radio" name="optionsRadios" id="debit" value="option" />
       Debit
       </label>
       </div>
