@@ -6,23 +6,26 @@ export default class InputPage extends Component {
     super();
     //
     // this.addTransaction = this.addTransaction.bind(this);
-    // this.saveAdd = this.saveAdd.bind(this);
+    this.saveAdd = this.saveAdd.bind(this);
 
     this.state = {
-      addTransactionInput: ''
+      addTransactionInput: '',
+      addInput: 0
     }
   }
 
   saveAdd(event) {
     event.preventDefault();
 
-    // let newTran.trans = this.state.addTransactionInput;
-    let newTran = newTran.trans
+    let newTran = {
+      trans: this.state.addTransactionInput,
+      amount: this.state.addInput
+    }
+    // let newTran = newTran.trans
 
-    let newTrans = {newTran};
+    // let newTrans = {newTran};
 
-    this.props.addTrans(newTrans);
-    this.setState({addTransactionInput: nul});
+    this.props.addTrans(newTran);
   }
   render() {
   //   let {transaction } = this.props;
@@ -45,7 +48,7 @@ export default class InputPage extends Component {
       <div className="form-group">
       {/* <label htmlFor="inputAmount" className="col-lg-2 control-label">Transaction Amount:</label> */}
       <div className="col-lg-10">
-      <input type="number" className="form-control" id="inputAmount" placeholder="Transaction Amount" />
+      <input type="number" className="form-control" id="inputAmount" placeholder="Transaction Amount"  value={this.state.addInput} onChange={e => {this.setState({addInput: e.target.value}) }} />
       </div>
       </div>
       <div className="form-group">

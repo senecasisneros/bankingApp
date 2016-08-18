@@ -14,6 +14,7 @@ export default class App extends Component {
     this.updateTrans = this.updateTrans.bind(this);
 
     this.deleteTransaction = this.deleteTransaction.bind(this);
+    this.addTrans = this.addTrans.bind(this);
 
 
     this.state = {
@@ -39,6 +40,7 @@ export default class App extends Component {
   };
 
   addTrans(transAdd) {
+    console.log(transAdd)
     fetch(`/api/transactions`, {
       method: 'POST',
       body: JSON.stringify(transAdd),
@@ -100,7 +102,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-      <InputPage addTrans={this.state.addTrans}/>
+      <InputPage addTrans={this.addTrans}/>
       <List transactions={this.state.transactions}
       toggleType={this.toggleType}
       updateTrans={this.updateTrans}
